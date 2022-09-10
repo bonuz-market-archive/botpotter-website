@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "Flame";
+  font-weight: 400;
+  src: url("/fonts/Flame/Flame-Regular.otf") format('truetype');
+}
+
+/* @font-face {
+  font-family: "Flame";
+  font-weight: 500;
+  src: url("/fonts/Flame/Flame-Bold-Variable.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: "Flame";
+  src: url("/fonts/Flame/Flame-Bold-Variable.ttf") format('truetype');
+  font-weight: 600; 
+}*/
