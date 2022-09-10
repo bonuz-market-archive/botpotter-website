@@ -198,38 +198,6 @@ export default function About({ ...other }: BoxProps) {
           </Stack>
         )}
 
-        {/* <ContentStyle>
-          <Box
-            sx={{
-              cursor: 'pointer',
-            }}
-          >
-            <Image
-              src='/svg/about.svg'
-              alt='about logo'
-              width={isDesktop ? 466 : 225}
-              height={isDesktop ? 363 : 261}
-              layout='fixed'
-            />
-          </Box>
-
-          <Typography
-            variant='h2'
-            mb={3}
-            align={isDesktop ? 'center' : 'left'}
-          >
-            About <br /> Bot Potter
-          </Typography>
-
-          <Typography
-            variant='body2'
-            align={isDesktop ? 'center' : 'left'}
-            color='grey.600'
-          >
-            BotPotter is a platform for finding, using and creating bots. A
-            dedicated marketplace helps to match creators and users.
-          </Typography>
-        </ContentStyle> */}
       </Container>
     </Box>
   );
