@@ -10,7 +10,7 @@ import useResponsive from 'hooks/useResponsive';
 const ContentStyle = styled('div')(({ theme, }) => ({
   [theme.breakpoints.up('md')]: {
     marginLeft: theme.spacing(9),
-    marginRight: theme.spacing(12),
+    // marginRight: theme.spacing(12),
   },
 }));
 

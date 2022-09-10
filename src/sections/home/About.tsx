@@ -1,10 +1,8 @@
-import { Box, BoxProps, Button, Link, Stack, Typography } from '@mui/material';
+import { Box, BoxProps, Button, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Image from 'next/image';
 
-import BotCard from 'components/BotCard';
 import Container from 'components/Container';
-import Tooltip from 'components/Tooltip';
 import useResponsive from 'hooks/useResponsive';
 
 // ----------------------------------------------------------------------

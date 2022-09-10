@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   FormControl,
   IconButton,
   InputAdornment,
@@ -10,24 +11,26 @@ const IconInput = () => {
   return (
     <FormControl
       sx={{
-        width: 'inherit',
+        width: '100%',
       }}
       variant='outlined'
     >
       <OutlinedInput
         fullWidth
         sx={{
+          height: 72,
+          pr:0,
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'rgba(255, 255, 255, 0.2)',
+            borderColor: '#DBDBDB',
           },
           '&.Mui-focused fieldset': {
-            borderColor: 'rgba(255, 255, 255, 1) !important',
+            borderColor: '#DBDBDB !important',
           },
           // borderTopRightRadius: 0,
           // borderTopLeftRadius: 0,
         }}
         id='outlined-adornment-password'
-        placeholder='Please choose'
+        placeholder='What bot you can find'
         type='text'
         // value={messageText}
         // onChange={(e) => setMessageText(e.target.value)}
@@ -35,21 +38,20 @@ const IconInput = () => {
         // ref={inputBox}
         endAdornment={(
           <InputAdornment position='end'>
-            <IconButton
-              aria-label='toggle password visibility'
-              // onClick={handleSendMessage}
-              // onMouseDown={handleMouseDownPassword}
-              edge='end'
+            <Button
+              variant='text'
+              color='primary'
+              sx={{
+                color: 'grey.900',
+                borderLeft: '1px solid #DBDBDB',
+                borderRadius: 0,
+                width: '155px',
+                height: '72px',
+                // border:0,
+              }}
             >
-
-              {/* {messageText && (
-<Box
-  component='img'
-  src='/svg/send-icon.svg'
-/> */}
-
-              {/* )} */}
-            </IconButton>
+              Search
+            </Button>
           </InputAdornment>
         )}
         label=''

@@ -1,8 +1,15 @@
 import React from 'react';
 
+import Divider from 'components/Divider';
 import Page from 'components/Page';
 import Layout from 'layouts';
-import { About, Community, PopularBots, SliderBots } from 'sections/home';
+import {
+  About,
+  BrowseBots,
+  Community,
+  PopularBots,
+  SliderBots
+} from 'sections/home';
 
 // ----------------------------------------------------------------------
 
@@ -18,8 +25,26 @@ export default function HomePage() {
       <SliderBots
         sx={{
           mt: {
-            xs: 8,
-            md: 18,
+            xs: 4,
+            md: 9,
+          },
+        }}
+      />
+
+      <BrowseBots
+        sx={{
+          mt: {
+            xs: 2,
+            md: 4,
+          },
+        }}
+      />
+
+      <Divider
+        sx={{
+          mt: {
+            xs: 16,
+            md: 8,
           },
         }}
       />
@@ -27,8 +52,8 @@ export default function HomePage() {
       <PopularBots
         sx={{
           mt: {
-            xs: 8,
-            md: 18,
+            xs: 5,
+            md: 10,
           },
         }}
       />
