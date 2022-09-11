@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // scroll bar
 import 'simplebar/src/simplebar.css';
 import { useState, ReactElement, ReactNode, useEffect } from 'react';
@@ -29,7 +30,7 @@ type NextPageWithLayout = NextPage & {
 
 interface MyAppProps extends AppProps {
   Component: NextPageWithLayout;
-  pageProps: { dehydratedState?: DehydratedState };
+  // pageProps: { dehydratedState?: DehydratedState };
 }
 
 export default function MyApp(props: MyAppProps) {
@@ -57,6 +58,9 @@ export default function MyApp(props: MyAppProps) {
       </Head>
 
       <QueryClientProvider client={queryClient}>
+
+        {/* @ts-ignore */}
+
         <Hydrate state={pageProps.dehydratedState}>
           <MotionLazyContainer>
             <ThemeProvider>

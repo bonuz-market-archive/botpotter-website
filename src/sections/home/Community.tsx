@@ -1,9 +1,7 @@
-import { Box, BoxProps, Link, Stack, Typography } from '@mui/material';
+import { Box, BoxProps, Link, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import BotCard from 'components/BotCard';
 import Container from 'components/Container';
-import Tooltip from 'components/Tooltip';
 import useResponsive from 'hooks/useResponsive';
 
 // ----------------------------------------------------------------------
@@ -113,14 +111,6 @@ export default function Community({ ...other }: BoxProps) {
                   src={`/svg/${item.src}`}
                   alt={`${item.name} icon`}
                 />
-
-                {/* <Tooltip title={item.name}>
-                  <Box
-                    component='img'
-                    src={`/svg/${item.src}`}
-                    alt={`${item.name} icon`}
-                  />
-                </Tooltip> */}
               </Link>
             );
           })}

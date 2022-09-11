@@ -45,10 +45,13 @@ export default function PopularBots({ ...other }: BoxProps) {
             <BotCard
               title='Image Telegram Bot'
               body='Lorem ipsum description lorem ipsum dolor sit amet etc. Lorem ipsum description lorem ipsum dolor sit amet etc...'
-              twitterUrl='http://twitter.com/'
+              telegramUrl='http://tg.com/'
               discordUrl='http://discord.com/'
               monthlyPrice={15}
               yearlyPrice={12}
+              platform={['Telegram', 'Discord']}
+              category={['Application', 'Information']}
+              license={['Free']}
             />
 
             <BotCard
@@ -57,15 +60,21 @@ export default function PopularBots({ ...other }: BoxProps) {
               discordUrl='http://discord.com/'
               monthlyPrice={15}
               yearlyPrice={12}
+              platform={[ 'Discord']}
+              category={['Application', 'Information']}
+              license={['Free']}
             />
 
             <BotCard
               title='Find Influencer Bot'
               body='Lorem ipsum description lorem ipsum dolor sit amet etc. Lorem ipsum description lorem ipsum dolor sit amet etc...'
-              twitterUrl='http://twitter.com/'
+              telegramUrl='http://tg.com/'
               discordUrl='http://discord.com/'
               monthlyPrice={15}
               yearlyPrice={12}
+              platform={['Telegram', 'Discord']}
+              category={['Application', 'Information']}
+              license={['Free']}
             />
           </CardsWrapperStyle>
         </ContentStyle>
