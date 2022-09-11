@@ -17,7 +17,7 @@ navigation:
 The chart below helps to understand BotPotter:
  <br/><br/>
 
-![alt text](https://https://github.com/BotPotter/website/public/img/platform.png)
+![alt text](https://website-botpotter.vercel.app/img/platform.png)
 
  <br/><br/>
  
