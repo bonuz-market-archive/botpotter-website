@@ -1,66 +1,10 @@
 import { Box, BoxProps, Button, Stack, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import Image from 'next/image';
 
 import Container from 'components/Container';
 import useResponsive from 'hooks/useResponsive';
 
 // ----------------------------------------------------------------------
-
-const ContentStyle = styled('div')(({ theme, }) => ({
-  // display:'flex',
-  // flexDirection: 'row',
-  // flexWrap: 'wrap',
-  // justifyContent: 'start',
-
-  border: '1px solid red',
-  // padding: theme.spacing(0, 10),
-  display: 'grid',
-  gridTemplateColumns: 'repeat(1, 1fr)',
-  // gap: theme.spacing(2),
-  // marginTop: theme.spacing(3),
-
-  [theme.breakpoints.up('md')]: {
-    // marginTop: theme.spacing(6),
-    margin: 'auto',
-    // gap: theme.spacing(17),
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gridTemplateColumns: 'repeat(2, max-content)',
-    // gridTemplateColumns: 'repeat(2, 1fr)',
-  },
-}));
-
-// ----------------------------------------------------------------------
-
-const ITEMS = [
-  {
-    name: 'Reddit',
-    src: 'reddit-big.svg',
-    href: 'http://medium.com/',
-  },
-  {
-    name: 'Discord',
-    src: 'discord-big.svg',
-    href: 'http://discord.com/',
-  },
-  {
-    name: 'GitHub',
-    src: 'github-big.svg',
-    href: 'http://github.com/',
-  },
-  {
-    name: 'Twitter',
-    src: 'twitter-big.svg',
-    href: 'http://twitter.com/',
-  },
-
-  {
-    name: 'Facebook',
-    src: 'facebook-big.svg',
-    href: 'http://facebook.com/',
-  }
-];
 
 export default function About({ ...other }: BoxProps) {
   const isDesktop = useResponsive('up', 'md');
