@@ -6,7 +6,6 @@ import {
   List,
   ListItemButton,
   ListItemButtonProps,
-  ListSubheader,
   ListItemText
 } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
@@ -15,7 +14,6 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
 import { IconButtonAnimate } from '../../components/animate';
-import Iconify from '../../components/Iconify';
 import Logo from '../../components/Logo';
 import Scrollbar from '../../components/Scrollbar';
 import { NAVBAR } from '../../config';
@@ -77,7 +75,6 @@ export default function MenuMobile({ navConfig, }: MenuProps) {
           width={20}
           height={20}
         />
-
       </IconButtonAnimate>
 
       <Drawer
