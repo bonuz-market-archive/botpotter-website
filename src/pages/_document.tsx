@@ -24,7 +24,7 @@ export default class MyDocument extends Document {
 
           <link
             rel='shortcut icon'
-            href='/svg/logo.svg'
+            href='/svg/favicon.svg'
           />
 
           <meta
