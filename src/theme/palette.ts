@@ -165,10 +165,10 @@ const palette = {
     disabled: GREY[500],
   },
   background: {
-    // paper: '#fff',
-    // default:'#fff',
-    paper: GREY[100],
-    default: GREY[100],
+    paper: '#fff',
+    default: '#fff',
+    // paper: GREY[100],
+    // default: GREY[100],
   },
   action: {
     active: GREY[600],

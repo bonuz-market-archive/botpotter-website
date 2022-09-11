@@ -1,17 +1,10 @@
-import {
-  Box,
-  BoxProps,
-  TextField,
-  Typography,
-  Button,
-  Stack
-} from '@mui/material';
+import { Box, BoxProps, Button, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-import BotCard from 'components/BotCard';
 import Container from 'components/Container';
-import IconInput from 'components/IconInput';
+import SearchInput from 'components/SearchInput';
 import useResponsive from 'hooks/useResponsive';
 
 // ----------------------------------------------------------------------
@@ -41,6 +34,7 @@ const WrapperStyle = styled('div')(({ theme, }) => ({
 
 // ----------------------------------------------------------------------
 export default function PopularBots({ ...other }: BoxProps) {
+  const router = useRouter();
   const isDesktop = useResponsive('up', 'md');
 
   return (
@@ -62,7 +56,7 @@ export default function PopularBots({ ...other }: BoxProps) {
                 }),
               }}
             >
-              <IconInput />
+              <SearchInput />
             </Box>
 
             <Box
@@ -99,6 +93,7 @@ export default function PopularBots({ ...other }: BoxProps) {
                     width: '100%',
                     height: '72px',
                   }}
+                  onClick={() => router.push('/search')}
                 >
                   Browse All
                 </Button>

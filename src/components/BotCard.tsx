@@ -4,6 +4,8 @@ import { Box, Paper, Typography, Stack, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Image from 'next/image';
 
+import { IBots } from 'types';
+
 import Divider from './Divider';
 
 // ----------------------------------------------------------------------
@@ -29,23 +31,14 @@ const CardActionStyle = styled('div')(({ theme, }) => ({
 
 // ----------------------------------------------------------------------
 
-interface Props {
-  title: string;
-  body: string;
-  twitterUrl?: string;
-  discordUrl?: string;
-  monthlyPrice: string | number;
-  yearlyPrice: string | number;
-}
-
 const BotCard = ({
   title,
   body,
-  twitterUrl,
+   telegramUrl,
   discordUrl,
   monthlyPrice,
   yearlyPrice,
-}: Props) => {
+}: IBots) => {
   return (
     <RootStyle>
       <Typography variant='h4'>{title}</Typography>
@@ -70,13 +63,13 @@ const BotCard = ({
           justifyContent='start'
           alignItems='center'
         >
-          {twitterUrl && (
+          {telegramUrl && (
             <Link
               href='#'
               underline='none'
             >
               <Image
-                src='/svg/twitter.svg'
+                src='/svg/telegram.svg'
                 alt='twitter icon'
                 width={47}
                 height={47}

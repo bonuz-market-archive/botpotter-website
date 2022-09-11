@@ -4,10 +4,14 @@ import {
   FormControl,
   IconButton,
   InputAdornment,
-  OutlinedInput
+  OutlinedInput,
+  OutlinedInputProps
 } from '@mui/material';
 
-const IconInput = () => {
+interface Props extends OutlinedInputProps{
+  btnOnClick?: () => void,
+}
+const SearchInput = ({btnOnClick, ...other}: Props) => {
   return (
     <FormControl
       sx={{
@@ -19,7 +23,7 @@ const IconInput = () => {
         fullWidth
         sx={{
           height: 72,
-          pr:0,
+          pr: 0,
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: '#DBDBDB',
           },
@@ -48,16 +52,22 @@ const IconInput = () => {
                 width: '155px',
                 height: '72px',
                 // border:0,
+                '&:hover':{
+                  borderTopRightRadius: 16,
+                  borderBottomRightRadius: 16,
+                },
               }}
+              onClick={btnOnClick}
             >
               Search
             </Button>
           </InputAdornment>
         )}
         label=''
+        {...other}
       />
     </FormControl>
   );
 };
 
-export default IconInput;
+export default SearchInput;
