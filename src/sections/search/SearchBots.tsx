@@ -2,7 +2,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState, useRef } from 'react';
 
-import { Box, BoxProps, Paper, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  BoxProps,
+  Button,
+  Collapse,
+  Paper,
+  Stack,
+  Typography
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { A11y, Navigation, Scrollbar, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -45,6 +53,8 @@ const CardsWrapperStyle = styled('div')(({ theme, }) => ({
 const GridStyle = styled('div')(({ theme, }) => ({
   display: 'grid',
   gap: theme.spacing(2),
+  // gridTemplateColumns: '1fr max-content',
+  gridTemplateColumns: '1fr',
   [theme.breakpoints.up('md')]: {
     columGap: theme.spacing(5),
     rowGap: theme.spacing(2),
@@ -60,9 +70,169 @@ const PaperStyle = styled(Paper)(({ theme, }) => ({
 
 // ----------------------------------------------------------------------
 
+interface FilterProps {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  btnOnClick: () => void;
+  handlePlatformChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCategoryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleLicenseChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+const Filters = ({
+  onChange,
+  btnOnClick,
+  handlePlatformChange,
+  handleCategoryChange,
+  handleLicenseChange,
+}: FilterProps) => {
+  const isDesktop = useResponsive('up', 'md');
+
+  return (
+    <>
+      <SearchInput
+        onChange={onChange}
+        btnOnClick={btnOnClick}
+      />
+
+      <Box>
+        <PaperStyle
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: 'repeat(2, 1fr)',
+              md: 'repeat(1, 1fr)',
+            },
+          }}
+        >
+          <Typography
+            variant='h5'
+            mb={4}
+          >
+            Platform
+          </Typography>
+
+          <Stack
+            direction='column'
+            spacing={1}
+            justifyContent='center'
+            alignItems='start'
+          >
+            <CheckboxWithLabel
+              label='Telegram'
+              onChange={handlePlatformChange}
+            />
+
+            <CheckboxWithLabel
+              label='Twitter'
+              onChange={handlePlatformChange}
+            />
+
+            <CheckboxWithLabel
+              label='Facebook'
+              onChange={handlePlatformChange}
+            />
+
+            <CheckboxWithLabel
+              label='Discord'
+              onChange={handlePlatformChange}
+            />
+
+            <CheckboxWithLabel
+              label='WhatsApp'
+              onChange={handlePlatformChange}
+            />
+          </Stack>
+
+          {isDesktop && (
+            <Divider
+              sx={{
+                my: 4,
+                bgcolor: '#EAEAEA',
+                opacity: 0.7,
+              }}
+            />
+          )}
+
+          <Typography
+            variant='h5'
+            mb={4}
+            sx={{
+              ...(!isDesktop && {
+                gridColumn: '2/ 3',
+                gridRow: '1/ -1',
+              }),
+            }}
+          >
+            Category
+          </Typography>
+
+          <Stack
+            direction='column'
+            spacing={1}
+            justifyContent='center'
+            alignItems='start'
+          >
+            <CheckboxWithLabel
+              label='Support'
+              onChange={handleCategoryChange}
+            />
+
+            <CheckboxWithLabel
+              label='Administration'
+              onChange={handleCategoryChange}
+            />
+
+            <CheckboxWithLabel
+              label='Application'
+              onChange={handleCategoryChange}
+            />
+
+            <CheckboxWithLabel
+              label='Information'
+              onChange={handleCategoryChange}
+            />
+
+            <CheckboxWithLabel
+              label='Other'
+              onChange={handleCategoryChange}
+            />
+          </Stack>
+        </PaperStyle>
+
+        <PaperStyle
+          sx={{
+            mt: 4,
+          }}
+        >
+          <Typography
+            variant='h5'
+            mb={4}
+          >
+            License
+          </Typography>
+
+          <Stack
+            direction='column'
+            spacing={1}
+            justifyContent='center'
+            alignItems='start'
+          >
+            <CheckboxWithLabel
+              label='Free'
+              onChange={handleLicenseChange}
+            />
+
+            <CheckboxWithLabel
+              label='Commercial'
+              onChange={handleLicenseChange}
+            />
+          </Stack>
+        </PaperStyle>
+      </Box>
+    </>
+  );
+};
 export default function SearchBots({ ...other }: BoxProps) {
-  const prevRef = useRef();
-  const nextRef = useRef();
+  const [open, setOpen] = React.useState(false);
 
   const isMobile = useResponsive('down', 'sm');
   const isDesktop = useResponsive('up', 'md');
@@ -117,6 +287,10 @@ export default function SearchBots({ ...other }: BoxProps) {
     } else {
       setFilteredBots(data.bots);
     }
+  };
+
+  const handleClick = () => {
+    setOpen(!open);
   };
 
   useEffect(() => {
@@ -178,16 +352,22 @@ export default function SearchBots({ ...other }: BoxProps) {
   const n = isDesktop ? 8 : 3;
   const numOfSlides = Math.ceil((filteredBots?.length ?? 0) / n);
 
-  console.log(
-    '🚀MMM ~ file: SearchBots.tsx ~ line 181 ~ numOfSlides',
-    numOfSlides
-  );
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchFilter(event.target.value);
+  };
 
   return (
     <Box {...other}>
       <Container>
         <ContentStyle>
           <GridStyle>
+           <Stack
+             direction='row'
+             spacing={1}
+             justifyContent='space-between'
+             alignItems='center'
+           >
+              
             <Typography
               variant='h2'
               color='initial'
@@ -195,137 +375,90 @@ export default function SearchBots({ ...other }: BoxProps) {
             >
               Search
             </Typography>
-
-            <SearchInput
-              onChange={(e) => setSearchFilter(e.target.value)}
-              btnOnClick={handleSearchBtnOnClick}
-            />
-
-            <Box>
-              <PaperStyle>
-                <Typography
-                  variant='h5'
-                  mb={4}
-                >
-                  Platform
-                </Typography>
-
-                <Stack
-                  direction='column'
-                  spacing={1}
-                  justifyContent='center'
-                  alignItems='start'
-                >
-                  <CheckboxWithLabel
-                    label='Telegram'
-                    onChange={handlePlatformChange}
-                  />
-
-                  <CheckboxWithLabel
-                    label='Twitter'
-                    onChange={handlePlatformChange}
-                  />
-
-                  <CheckboxWithLabel
-                    label='Facebook'
-                    onChange={handlePlatformChange}
-                  />
-
-                  <CheckboxWithLabel
-                    label='Discord'
-                    onChange={handlePlatformChange}
-                  />
-
-                  <CheckboxWithLabel
-                    label='WhatsApp'
-                    onChange={handlePlatformChange}
-                  />
-                </Stack>
-
-                <Divider
-                  sx={{
-                    my: 4,
-                    bgcolor: '#EAEAEA',
-                    opacity: 0.7,
-                  }}
-                />
-
-                <Typography
-                  variant='h5'
-                  mb={4}
-                >
-                  Category
-                </Typography>
-
-                <Stack
-                  direction='column'
-                  spacing={1}
-                  justifyContent='center'
-                  alignItems='start'
-                >
-                  <CheckboxWithLabel
-                    label='Support'
-                    onChange={handleCategoryChange}
-                  />
-
-                  <CheckboxWithLabel
-                    label='Administration'
-                    onChange={handleCategoryChange}
-                  />
-
-                  <CheckboxWithLabel
-                    label='Application'
-                    onChange={handleCategoryChange}
-                  />
-
-                  <CheckboxWithLabel
-                    label='Information'
-                    onChange={handleCategoryChange}
-                  />
-
-                  <CheckboxWithLabel
-                    label='Other'
-                    onChange={handleCategoryChange}
-                  />
-                </Stack>
-              </PaperStyle>
-
-              <PaperStyle
+            
+            {!isDesktop && (
+              <Box
                 sx={{
-                  mt: 4,
+                  cursor: 'pointer',
                 }}
+                onClick={handleClick}
               >
-                <Typography
-                  variant='h5'
-                  mb={4}
-                >
-                  License
-                </Typography>
+                {!open ? (
+                  <Button
+                    variant='text'
+                    color='primary'
+                    sx={{
+                      color: 'grey.900',
+                      border: '1px solid #DBDBDB',
+                      borderRadius: '16px',
+                      width: 110,
+                      height: 54,
+                    }}
+                  >
+                    Filter
+                  </Button>
+                ) : (
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    sx={{
+                      height: 54,
+                      width: 110,
+                      justifyContent: 'space-around',
+                      // p:0,
+                    }}
+                  >
+                    <Typography variant='subtitle1'>Filter</Typography>
 
-                <Stack
-                  direction='column'
-                  spacing={1}
-                  justifyContent='center'
-                  alignItems='start'
-                >
-                  <CheckboxWithLabel
-                    label='Free'
-                    onChange={handleLicenseChange}
+                    <Box
+                      component='img'
+                      src='/svg/cross.svg'
+                      alt='close icon'
+                    />
+                  </Button>
+                )}
+              </Box>
+            )}
+
+            </Stack>
+
+            {isDesktop ? (
+              <Filters
+                btnOnClick={handleSearchBtnOnClick}
+                onChange={handleInputChange}
+                handlePlatformChange={handlePlatformChange}
+                handleCategoryChange={handleCategoryChange}
+                handleLicenseChange={handleLicenseChange}
+              />
+            ) : (
+              <Collapse
+                in={open}
+                timeout='auto'
+                unmountOnExit
+              >
+                <Box>
+                  <Filters
+                    btnOnClick={handleSearchBtnOnClick}
+                    onChange={handleInputChange}
+                    handlePlatformChange={handlePlatformChange}
+                    handleCategoryChange={handleCategoryChange}
+                    handleLicenseChange={handleLicenseChange}
                   />
+                </Box>
+              </Collapse>
+            )}
 
-                  <CheckboxWithLabel
-                    label='Commercial'
-                    onChange={handleLicenseChange}
-                  />
-                </Stack>
-              </PaperStyle>
-            </Box>
-
-            <Box>
+            <Box
+              sx={{
+              ...(!isDesktop &&{
+                gridColumn:'1/ -1',
+              }),
+            }}
+            >
               <Box
                 sx={{
                   maxWidth: {
-                    xs: 337,
+                    xs: 315,
                     sm: 600,
                     md: 740,
                   },
@@ -355,7 +488,6 @@ export default function SearchBots({ ...other }: BoxProps) {
                   pagination={{
                     clickable: true,
                   }}
-        
                   modules={[Pagination]}
                   // breakpoints={{
                   //   250: {
