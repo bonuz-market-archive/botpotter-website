@@ -5,7 +5,8 @@ import { useState, ReactElement, ReactNode, useEffect } from 'react';
 import {
   Hydrate,
   QueryClient,
-  QueryClientProvider
+  QueryClientProvider,
+  DehydratedState
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NextPage } from 'next';
@@ -28,6 +29,7 @@ type NextPageWithLayout = NextPage & {
 
 interface MyAppProps extends AppProps {
   Component: NextPageWithLayout;
+  pageProps: { dehydratedState?: DehydratedState };
 }
 
 export default function MyApp(props: MyAppProps) {
@@ -76,7 +78,6 @@ export default function MyApp(props: MyAppProps) {
           initialIsOpen={false}
           position='bottom-right'
         />
-
       </QueryClientProvider>
     </>
   );
