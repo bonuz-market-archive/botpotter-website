@@ -1,0 +1,26 @@
+{
+  "menu": [
+    {
+      "label": "Platform",
+      "children": [
+        {
+          "label": "Bot Creation"
+        },
+        {
+          "label": "Documentation",
+          "children": [
+            {
+              "label": "Concept"
+            },
+            {
+              "label": "API"
+            }
+          ]
+        },
+        {
+          "label": "Help"
+        }
+      ]
+    }
+  ]
+}
