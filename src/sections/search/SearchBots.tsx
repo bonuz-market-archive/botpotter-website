@@ -39,23 +39,18 @@ const ContentStyle = styled('div')(({ theme, }) => ({
 }));
 
 // ----------------------------------------------------------------------
-
-const CardsWrapperStyle = styled('div')(({ theme, }) => ({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(337px, 1fr))',
-  gap: theme.spacing(2),
-  [theme.breakpoints.up('md')]: {
-    gap: theme.spacing(3),
-  },
-}));
-
-// ----------------------------------------------------------------------
 const GridStyle = styled('div')(({ theme, }) => ({
+  maxWidth: '100%',
   display: 'grid',
   gap: theme.spacing(2),
-  // gridTemplateColumns: '1fr max-content',
   gridTemplateColumns: '1fr',
   [theme.breakpoints.up('md')]: {
+    columGap: theme.spacing(5),
+    rowGap: theme.spacing(2),
+    gridTemplateColumns: '250px 1fr',
+  },
+
+  [theme.breakpoints.up('lg')]: {
     columGap: theme.spacing(5),
     rowGap: theme.spacing(2),
     gridTemplateColumns: '359px 1fr',
@@ -349,7 +344,8 @@ export default function SearchBots({ ...other }: BoxProps) {
     }
   }, [categoryFilter, data?.bots, licenseFilter.length, platformFilter]);
 
-  const n = isDesktop ? 8 : 3;
+  let n = isDesktop ? 8 : 4;
+  n = isMobile ? 3 : n;
   const numOfSlides = Math.ceil((filteredBots?.length ?? 0) / n);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -361,65 +357,63 @@ export default function SearchBots({ ...other }: BoxProps) {
       <Container>
         <ContentStyle>
           <GridStyle>
-           <Stack
-             direction='row'
-             spacing={1}
-             justifyContent='space-between'
-             alignItems='center'
-           >
-              
-            <Typography
-              variant='h2'
-              color='initial'
-              // mb={4}
+            <Stack
+              direction='row'
+              spacing={1}
+              justifyContent='space-between'
+              alignItems='center'
             >
-              Search
-            </Typography>
-            
-            {!isDesktop && (
-              <Box
-                sx={{
-                  cursor: 'pointer',
-                }}
-                onClick={handleClick}
+              <Typography
+                variant='h2'
+                color='initial'
+                // mb={4}
               >
-                {!open ? (
-                  <Button
-                    variant='text'
-                    color='primary'
-                    sx={{
-                      color: 'grey.900',
-                      border: '1px solid #DBDBDB',
-                      borderRadius: '16px',
-                      width: 110,
-                      height: 54,
-                    }}
-                  >
-                    Filter
-                  </Button>
-                ) : (
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    sx={{
-                      height: 54,
-                      width: 110,
-                      justifyContent: 'space-around',
-                      // p:0,
-                    }}
-                  >
-                    <Typography variant='subtitle1'>Filter</Typography>
+                Search
+              </Typography>
 
-                    <Box
-                      component='img'
-                      src='/svg/cross.svg'
-                      alt='close icon'
-                    />
-                  </Button>
-                )}
-              </Box>
-            )}
+              {!isDesktop && (
+                <Box
+                  sx={{
+                    cursor: 'pointer',
+                  }}
+                  onClick={handleClick}
+                >
+                  {!open ? (
+                    <Button
+                      variant='text'
+                      color='primary'
+                      sx={{
+                        color: 'grey.900',
+                        border: '1px solid #DBDBDB',
+                        borderRadius: '16px',
+                        width: 110,
+                        height: 54,
+                      }}
+                    >
+                      Filter
+                    </Button>
+                  ) : (
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      sx={{
+                        height: 54,
+                        width: 110,
+                        justifyContent: 'space-around',
+                        // p:0,
+                      }}
+                    >
+                      <Typography variant='subtitle1'>Filter</Typography>
 
+                      <Box
+                        component='img'
+                        src='/svg/cross.svg'
+                        alt='close icon'
+                      />
+                    </Button>
+                  )}
+                </Box>
+              )}
             </Stack>
 
             {isDesktop ? (
@@ -450,31 +444,24 @@ export default function SearchBots({ ...other }: BoxProps) {
 
             <Box
               sx={{
-              ...(!isDesktop &&{
-                gridColumn:'1/ -1',
-              }),
-            }}
+                ...(!isDesktop && {
+                  gridColumn: '1/ -1',
+                }),
+              }}
             >
               <Box
                 sx={{
-                  maxWidth: {
-                    xs: 315,
-                    sm: 600,
-                    md: 740,
-                  },
                   '& .mySwiper': {
-                    // height: 100,
                     '& .swiper-wrapper': {
                       pb: 10,
+                      maxWidth: 100, // this is just to remove width: 100%;
                     },
                     '& .swiper-slide': {
                       display: 'grid',
                       gridTemplateColumns: {
                         xs: '1fr',
                         sm: 'repeat(auto-fill, minmax(337px, 1fr))',
-                        // md: 'repeat(auto-fill, minmax(337px, 1fr))',
                       },
-
                       gap: 2,
                     },
                     '& .swiper-pagination-bullet-active': {
@@ -484,34 +471,10 @@ export default function SearchBots({ ...other }: BoxProps) {
                 }}
               >
                 <Swiper
-                  // pagination={true}
                   pagination={{
                     clickable: true,
                   }}
                   modules={[Pagination]}
-                  // breakpoints={{
-                  //   250: {
-                  //     slidesPerView: 2.1,
-                  //   },
-                  //   450: {
-                  //     slidesPerView: 3.3,
-                  //   },
-                  //   // 600: {
-                  //   //   slidesPerView: 2,
-                  //   // },
-                  //   // 900: {
-                  //   //    slidesPerView: 3,
-                  //   // },
-                  //   // 1200: {
-                  //   //    slidesPerView: 4,
-                  //   // },
-                  //   // 1600: {
-                  //   //    slidesPerView: 5,
-                  //   // },
-                  //   // 1800: {
-                  //   //    slidesPerView: 6,
-                  //   // },
-                  // }}
                   className='mySwiper'
                 >
                   {[...Array(numOfSlides)].map((slideNumber, index) => {
@@ -538,27 +501,6 @@ export default function SearchBots({ ...other }: BoxProps) {
                       </SwiperSlide>
                     );
                   })}
-
-                  {/* <SwiperSlide>
-                    {filteredBots &&
-                      filteredBots.map((bot, idx) => {
-                        return <BotCard key={`bot__${idx}`} {...bot} />;
-                      })}
-                  </SwiperSlide>
-
-                  <SwiperSlide>Slide 3</SwiperSlide>
-
-                  <SwiperSlide>Slide 4</SwiperSlide>
-
-                  <SwiperSlide>Slide 5</SwiperSlide>
-
-                  <SwiperSlide>Slide 6</SwiperSlide>
-
-                  <SwiperSlide>Slide 7</SwiperSlide>
-
-                  <SwiperSlide>Slide 8</SwiperSlide>
-
-                  <SwiperSlide>Slide 9</SwiperSlide> */}
                 </Swiper>
               </Box>
 
