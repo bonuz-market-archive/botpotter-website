@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Container from 'components/Container';
 import SearchInput from 'components/SearchInput';
 import useResponsive from 'hooks/useResponsive';
+import { PATH_PAGE } from 'routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -93,7 +94,7 @@ export default function PopularBots({ ...other }: BoxProps) {
                     width: '100%',
                     height: '72px',
                   }}
-                  onClick={() => router.push('/search')}
+                  onClick={() => router.push(PATH_PAGE.browse)}
                 >
                   Browse All
                 </Button>

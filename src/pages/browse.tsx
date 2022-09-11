@@ -6,13 +6,13 @@ import { SearchBots } from 'sections/search';
 
 // ----------------------------------------------------------------------
 
-SearchPage.getLayout = function getLayout(page: React.ReactElement) {
+BrowsePage.getLayout = function getLayout(page: React.ReactElement) {
   return <Layout>{page}</Layout>;
 };
 
 // ----------------------------------------------------------------------
 
-export default function SearchPage() {
+export default function BrowsePage() {
   return (
     <Page title='Bot Potter - Search'>
       <SearchBots
