@@ -1,9 +1,11 @@
 /* eslint-disable sonarjs/no-identical-functions */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import { Box, BoxProps, Paper, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { A11y, Navigation, Scrollbar, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import BotCard from 'components/BotCard';
 import CheckboxWithLabel from 'components/CheckboxWithLabel';
@@ -13,6 +15,12 @@ import SearchInput from 'components/SearchInput';
 import { useQueryBots } from 'hooks/react-query';
 import useResponsive from 'hooks/useResponsive';
 import { IBots, TCategory, TLicense, TPlatform } from 'types';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
 // ----------------------------------------------------------------------
 
 const ContentStyle = styled('div')(({ theme, }) => ({
@@ -49,9 +57,14 @@ const PaperStyle = styled(Paper)(({ theme, }) => ({
   backgroundColor: '#FBFBFB',
   padding: theme.spacing(4),
 }));
+
 // ----------------------------------------------------------------------
 
 export default function SearchBots({ ...other }: BoxProps) {
+  const prevRef = useRef();
+  const nextRef = useRef();
+
+  const isMobile = useResponsive('down', 'sm');
   const isDesktop = useResponsive('up', 'md');
   const { isLoading, data, } = useQueryBots();
   const [filteredBots, setFilteredBots] = useState<IBots[] | undefined>();
@@ -90,16 +103,20 @@ export default function SearchBots({ ...other }: BoxProps) {
   };
 
   const handleSearchBtnOnClick = () => {
-    if (!filteredBots) return;
+    if (!filteredBots || !data?.bots) return;
 
-    const botsData = filteredBots.filter((bot) => {
-      return (
-        bot.title.toString().toLowerCase().includes(searchFilter) ||
-        bot.body.toString().toLowerCase().includes(searchFilter)
-      );
-    });
+    if (searchFilter) {
+      const botsData = filteredBots.filter((bot) => {
+        return (
+          bot.title.toString().toLowerCase().includes(searchFilter) ||
+          bot.body.toString().toLowerCase().includes(searchFilter)
+        );
+      });
 
-    setFilteredBots(botsData);
+      setFilteredBots(botsData);
+    } else {
+      setFilteredBots(data.bots);
+    }
   };
 
   useEffect(() => {
@@ -156,13 +173,15 @@ export default function SearchBots({ ...other }: BoxProps) {
         setFilteredBots(filteredPlatform);
       }
     }
-  }, [
-    categoryFilter,
-    data?.bots,
-    licenseFilter.length,
-    platformFilter,
-    searchFilter
-  ]);
+  }, [categoryFilter, data?.bots, licenseFilter.length, platformFilter]);
+
+  const n = isDesktop ? 8 : 3;
+  const numOfSlides = Math.ceil((filteredBots?.length ?? 0) / n);
+
+  console.log(
+    '🚀MMM ~ file: SearchBots.tsx ~ line 181 ~ numOfSlides',
+    numOfSlides
+  );
 
   return (
     <Box {...other}>
@@ -303,17 +322,125 @@ export default function SearchBots({ ...other }: BoxProps) {
             </Box>
 
             <Box>
-              <CardsWrapperStyle>
+              <Box
+                sx={{
+                  maxWidth: {
+                    xs: 337,
+                    sm: 600,
+                    md: 740,
+                  },
+                  '& .mySwiper': {
+                    // height: 100,
+                    '& .swiper-wrapper': {
+                      pb: 10,
+                    },
+                    '& .swiper-slide': {
+                      display: 'grid',
+                      gridTemplateColumns: {
+                        xs: '1fr',
+                        sm: 'repeat(auto-fill, minmax(337px, 1fr))',
+                        // md: 'repeat(auto-fill, minmax(337px, 1fr))',
+                      },
+
+                      gap: 2,
+                    },
+                    '& .swiper-pagination-bullet-active': {
+                      background: '#CA7B57',
+                    },
+                  },
+                }}
+              >
+                <Swiper
+                  // pagination={true}
+                  pagination={{
+                    clickable: true,
+                  }}
+        
+                  modules={[Pagination]}
+                  // breakpoints={{
+                  //   250: {
+                  //     slidesPerView: 2.1,
+                  //   },
+                  //   450: {
+                  //     slidesPerView: 3.3,
+                  //   },
+                  //   // 600: {
+                  //   //   slidesPerView: 2,
+                  //   // },
+                  //   // 900: {
+                  //   //    slidesPerView: 3,
+                  //   // },
+                  //   // 1200: {
+                  //   //    slidesPerView: 4,
+                  //   // },
+                  //   // 1600: {
+                  //   //    slidesPerView: 5,
+                  //   // },
+                  //   // 1800: {
+                  //   //    slidesPerView: 6,
+                  //   // },
+                  // }}
+                  className='mySwiper'
+                >
+                  {[...Array(numOfSlides)].map((slideNumber, index) => {
+                    const start = index * n;
+                    const end = (index + 1) * n;
+
+                    const range = Array.from(Array(end - start).keys()).map(
+                      (x) => x + start
+                    );
+
+                    return (
+                      <SwiperSlide key={`SwiperSlide___${slideNumber}`}>
+                        {range.map((element, idx) => {
+                          const bot = filteredBots?.[element];
+
+                          return bot ? (
+                            <BotCard
+                              //
+                              key={`bot__${idx}`}
+                              {...bot}
+                            />
+                          ) : null;
+                        })}
+                      </SwiperSlide>
+                    );
+                  })}
+
+                  {/* <SwiperSlide>
+                    {filteredBots &&
+                      filteredBots.map((bot, idx) => {
+                        return <BotCard key={`bot__${idx}`} {...bot} />;
+                      })}
+                  </SwiperSlide>
+
+                  <SwiperSlide>Slide 3</SwiperSlide>
+
+                  <SwiperSlide>Slide 4</SwiperSlide>
+
+                  <SwiperSlide>Slide 5</SwiperSlide>
+
+                  <SwiperSlide>Slide 6</SwiperSlide>
+
+                  <SwiperSlide>Slide 7</SwiperSlide>
+
+                  <SwiperSlide>Slide 8</SwiperSlide>
+
+                  <SwiperSlide>Slide 9</SwiperSlide> */}
+                </Swiper>
+              </Box>
+
+              {/* <CardsWrapperStyle>
                 {filteredBots &&
                   filteredBots.map((bot, idx) => {
                     return (
-                      <BotCard
-                        key={`bot__${idx}`}
-                        {...bot}
-                      />
-                    );
+<BotCard
+  key={`bot__${idx}`}
+  {...bot}
+/>
+);
                   })}
-              </CardsWrapperStyle>
+              </CardsWrapperStyle> */}
             </Box>
           </GridStyle>
         </ContentStyle>

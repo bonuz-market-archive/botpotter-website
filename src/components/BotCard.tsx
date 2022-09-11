@@ -18,6 +18,7 @@ const RootStyle = styled(Paper)(({ theme, }) => ({
   paddingBottom: theme.spacing(0),
   display: 'flex',
   flexDirection: 'column',
+  // maxHeight:300,
 }));
 
 // ----------------------------------------------------------------------
