@@ -77,11 +77,6 @@ export default function Documentation({ initialProps, ...other }: Props) {
     content,
   } = initialProps;
 
-  console.log(
-    '🚀MMM ~ file: Documentation.tsx ~ line 58 ~ navigation',
-    navigation
-  );
-
   return (
     <Box {...other}>
       <Container>
