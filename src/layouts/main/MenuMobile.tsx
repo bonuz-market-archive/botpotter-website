@@ -27,6 +27,7 @@ const ListItemStyle = styled(ListItemButton)<ListItemButtonProps>(
     textTransform: 'capitalize',
     height: NAVBAR.DASHBOARD_ITEM_ROOT_HEIGHT,
     color: theme.palette.text.primary,
+    // color:'#fff',
     // paddingLeft:theme.spacing(9),
   })
 );
@@ -87,7 +88,7 @@ export default function MenuMobile({ navConfig, }: MenuProps) {
           sx: {
             pb: 5,
             width: 260,
-            backgroundColor: 'primary.main',
+            // backgroundColor: 'common.black',
           },
         }}
       >
