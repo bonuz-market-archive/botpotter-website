@@ -71,11 +71,7 @@ interface Props extends BoxProps {
 export default function Documentation({ initialProps, ...other }: Props) {
   const isDesktop = useResponsive('up', 'md');
 
-  const {
-    frontmatter: { title, date, description, navigation, },
-    slug,
-    content,
-  } = initialProps;
+  const { frontmatter, slug, content, } = initialProps;
 
   return (
     <Box {...other}>
@@ -83,7 +79,7 @@ export default function Documentation({ initialProps, ...other }: Props) {
         <ContentStyle>
           <GridStyle>
             <Box gridColumn='1/-1'>
-              <Typography variant='h2'>{title}</Typography>
+              <Typography variant='h2'>{frontmatter?.title}</Typography>
             </Box>
 
             <Box>
@@ -109,7 +105,7 @@ export default function Documentation({ initialProps, ...other }: Props) {
                   justifyContent='center'
                   alignItems='start'
                 >
-                  {navigation?.map((item: any, idx:number) => {
+                  {frontmatter?.navigation?.map((item: any, idx: number) => {
                     const { label, children, } = item;
 
                     return (
@@ -128,7 +124,7 @@ export default function Documentation({ initialProps, ...other }: Props) {
                         />
 
                         {children &&
-                          Object.keys(item).map((key, index:number) => {
+                          Object.keys(item).map((key, index: number) => {
                             const label = item[key];
 
                             if (key !== 'label' && key !== 'children')
@@ -156,11 +152,13 @@ export default function Documentation({ initialProps, ...other }: Props) {
                 }),
               }}
             >
-              <MarkDownStyle
-                dangerouslySetInnerHTML={{
-                  __html: marked.parse(content),
-                }}
-              ></MarkDownStyle>
+              {content && (
+                <MarkDownStyle
+                  dangerouslySetInnerHTML={{
+                    __html: marked.parse(content),
+                  }}
+                ></MarkDownStyle>
+              )}
             </Box>
           </GridStyle>
         </ContentStyle>

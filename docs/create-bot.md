@@ -17,7 +17,7 @@ navigation:
 The chart below helps to understand BotPotter:
  <br/><br/>
 
-![alt text](https://https://github.com/BotPotter/website/docs/images/platform.png)
+![alt text](https://https://github.com/BotPotter/website/public/img/platform.png)
 
  <br/><br/>
  
@@ -56,3 +56,4 @@ See the [API documentation](https://link-url-here.org) to learn how to interact 
 ## Help
 
 Join our [discord community](https://link-url-here.org) for any type of support.
+
