@@ -9,7 +9,7 @@ import navConfig from './MenuConfig';
 import MenuFooter from './MenuFooter';
 // ----------------------------------------------------------------------
 
-const RootStyle = styled(Paper)(({ theme, }) => ({
+const RootStyle = styled(Paper)(({ theme }) => ({
   position: 'relative',
   backgroundColor: theme.palette.grey[900],
   display: 'grid',
@@ -25,13 +25,13 @@ const RootStyle = styled(Paper)(({ theme, }) => ({
   },
 
   [theme.breakpoints.up('md')]: {
-    padding: '40px 33px',
+    padding: '30px 23px',
     gridTemplateColumns: 'repeat(3, 1fr)',
   },
 
   [theme.breakpoints.up('lg')]: {
-    paddingTop: 50,
-    paddingBottom: 30,
+    paddingTop: 30,
+    paddingBottom: 20,
     paddingLeft: 107,
     paddingRight: 33,
     gridTemplateColumns: 'repeat(3, 1fr)',
@@ -42,6 +42,7 @@ const RootStyle = styled(Paper)(({ theme, }) => ({
 
 export default function MainFooter() {
   const isDesktop = useResponsive('up', 'md');
+  const matches = useResponsive('between', 'md', 900, 1060);
 
   return (
     <Container
@@ -59,15 +60,15 @@ export default function MainFooter() {
           <Image
             src='/svg/logo-footer-1.svg'
             alt='bot potter logo'
-            width={isDesktop ? 130 : 156}
-            height={isDesktop ? 44 : 54}
+            width={isDesktop ? 238 : 156}
+            height={isDesktop ? 78 : 54}
           />
         </Box>
 
         <Box
           sx={{
             mr: {
-              md: 25,
+              // md: 25,
               lg: 10,
             },
             display: 'grid',
@@ -81,7 +82,6 @@ export default function MainFooter() {
             justifySelf: 'center',
           }}
         >
-
           <MenuFooter navConfig={navConfig} />
         </Box>
 
@@ -91,7 +91,7 @@ export default function MainFooter() {
               gridColumn: '1/-1',
               justifySelf: 'center',
               mr: {
-                md: 25,
+                // md: 25,
                 lg: 10,
               },
             }}
@@ -125,8 +125,8 @@ export default function MainFooter() {
           <Image
             src='/svg/logo-footer-2.svg'
             alt='bot potter logo'
-            width={342}
-            height={230}
+            width={matches ? 300 : 342}
+            height={matches ? 200 : 230}
           />
         </Box>
       </RootStyle>

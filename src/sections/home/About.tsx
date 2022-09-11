@@ -87,8 +87,8 @@ export default function About({ ...other }: BoxProps) {
             spacing={3}
             justifyContent='start'
             alignItems={{
-              xs: 'start',
-              sm: 'center',
+              xs: 'center',
+              // sm: 'center',
             }}
           >
             <Typography variant='h2'>
