@@ -45,22 +45,6 @@ export default function MainFooter() {
   const isDesktop = useResponsive('up', 'md');
   const matches = useResponsive('between', 'md', 900, 1060);
 
-  const logo = (
-    <Box
-      sx={{
-        cursor: 'pointer',
-        justifySelf: 'center',
-      }}
-    >
-      <Image
-        src='/svg/logo-footer-1.svg'
-        alt='bot potter logo'
-        width={isDesktop ? 238 : 156}
-        height={isDesktop ? 78 : 54}
-      />
-    </Box>
-  );
-
   return (
     <Container
       sx={{
@@ -68,7 +52,22 @@ export default function MainFooter() {
       }}
     >
       <RootStyle>
-        <NextLink href='/'>{logo}</NextLink>;
+
+        <Box
+          component={NextLink}
+          href='/'
+          sx={{
+            cursor: 'pointer',
+            justifySelf: 'center',
+          }}
+        >
+          <Image
+            src='/svg/logo-footer-1.svg'
+            alt='bot potter logo'
+            width={isDesktop ? 238 : 156}
+            height={isDesktop ? 78 : 54}
+          />
+        </Box>
 
         <Box
           sx={{
