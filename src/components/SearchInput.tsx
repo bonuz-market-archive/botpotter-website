@@ -23,6 +23,7 @@ const SearchInput = ({btnOnClick, ...other}: Props) => {
         fullWidth
         sx={{
           height: 72,
+          pl:2,
           pr: 0,
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: '#DBDBDB',
