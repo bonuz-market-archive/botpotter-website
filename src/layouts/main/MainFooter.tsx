@@ -1,6 +1,7 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Image from 'next/image';
+import NextLink from 'next/link';
 
 import Container from 'components/Container';
 import useResponsive from 'hooks/useResponsive';
@@ -9,7 +10,7 @@ import navConfig from './MenuConfig';
 import MenuFooter from './MenuFooter';
 // ----------------------------------------------------------------------
 
-const RootStyle = styled(Paper)(({ theme }) => ({
+const RootStyle = styled(Paper)(({ theme, }) => ({
   position: 'relative',
   backgroundColor: theme.palette.grey[900],
   display: 'grid',
@@ -44,6 +45,22 @@ export default function MainFooter() {
   const isDesktop = useResponsive('up', 'md');
   const matches = useResponsive('between', 'md', 900, 1060);
 
+  const logo = (
+    <Box
+      sx={{
+        cursor: 'pointer',
+        justifySelf: 'center',
+      }}
+    >
+      <Image
+        src='/svg/logo-footer-1.svg'
+        alt='bot potter logo'
+        width={isDesktop ? 238 : 156}
+        height={isDesktop ? 78 : 54}
+      />
+    </Box>
+  );
+
   return (
     <Container
       sx={{
@@ -51,19 +68,7 @@ export default function MainFooter() {
       }}
     >
       <RootStyle>
-        <Box
-          sx={{
-            cursor: 'pointer',
-            justifySelf: 'center',
-          }}
-        >
-          <Image
-            src='/svg/logo-footer-1.svg'
-            alt='bot potter logo'
-            width={isDesktop ? 238 : 156}
-            height={isDesktop ? 78 : 54}
-          />
-        </Box>
+        <NextLink href='/'>{logo}</NextLink>;
 
         <Box
           sx={{
@@ -103,7 +108,7 @@ export default function MainFooter() {
                 opacity: '0.3',
               }}
             >
-              Copyright © 2022 Bonuz Inc. All rights reserved.
+              Copyright © 2022 BotPotter. All rights reserved.
             </Typography>
           </Box>
         )}
