@@ -24,6 +24,9 @@ const Logo = forwardRef<any, Props>(
         alt='bot potter logo'
         sx={{
           cursor: 'pointer',
+          ...(isOffset && {
+            ml: 9,
+          }),
           ...sx,
         }}
       />
