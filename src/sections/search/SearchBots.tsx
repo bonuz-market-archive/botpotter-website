@@ -278,8 +278,11 @@ export default function SearchBots({ ...other }: BoxProps) {
     if (searchFilter) {
       const botsData = filteredBots.filter((bot) => {
         return (
-          bot.title.toString().toLowerCase().includes(searchFilter) ||
-          bot.body.toString().toLowerCase().includes(searchFilter)
+          bot.title
+            .toString()
+            .toLowerCase()
+            .includes(searchFilter.toLowerCase()) ||
+          bot.body.toString().toLowerCase().includes(searchFilter.toLowerCase())
         );
       });
 
@@ -296,15 +299,18 @@ export default function SearchBots({ ...other }: BoxProps) {
   useEffect(() => {
     if (!data?.bots) return;
 
-    const botsData = data.bots;
+    // const botsData = data.bots;
 
     //* Filter as user types
-    // const botsData = data.bots.filter((bot) => {
-    //   return (
-    //     bot.title.toString().toLowerCase().includes(searchFilter) ||
-    //     bot.body.toString().toLowerCase().includes(searchFilter)
-    //   );
-    // });
+    const botsData = data.bots.filter((bot) => {
+      return (
+        bot.title
+          .toString()
+          .toLowerCase()
+          .includes(searchFilter.toLowerCase()) ||
+        bot.body.toString().toLowerCase().includes(searchFilter.toLowerCase())
+      );
+    });
 
     if (
       platformFilter.length === 0 &&
@@ -347,19 +353,27 @@ export default function SearchBots({ ...other }: BoxProps) {
         setFilteredBots(filteredPlatform);
       }
     }
-  }, [categoryFilter, data?.bots, licenseFilter.length, platformFilter]);
+  }, [
+    categoryFilter,
+    data?.bots,
+    licenseFilter?.length,
+    platformFilter,
+    searchFilter
+  ]);
 
   let n = isDesktop ? 8 : 4;
   n = isMobile ? 3 : n;
   const numOfSlides = Math.ceil((filteredBots?.length ?? 0) / n);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchFilter(event.target.value);
+    const value = event.target.value;
+    setSearchFilter(value);
   };
 
   useEffect(() => {
     const filterQuery = router.query.searchFilter as string;
-    setSearchFilter(filterQuery || '');
+
+    if (filterQuery) setSearchFilter(filterQuery || '');
   }, [router.query]);
 
   return (
@@ -497,8 +511,9 @@ export default function SearchBots({ ...other }: BoxProps) {
                       (x) => x + start
                     );
 
+                    // if (filteredBots && end <= filteredBots?.length)
                     return (
-                      <SwiperSlide key={`SwiperSlide___${slideNumber}`}>
+                      <SwiperSlide key={`SwiperSlide___${slideNumber}__${index}`}>
                         {range.map((element, idx) => {
                           const bot = filteredBots?.[element];
 
