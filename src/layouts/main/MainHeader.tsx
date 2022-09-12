@@ -113,7 +113,7 @@ export default function MainHeader() {
             justifyContent='center'
             alignItems='center'
           >
-            <Logo />
+            <Logo  isOffset={isOffset}/>
 
             {isDesktop && <MenuDesktop navConfig={navConfig} />}
           </Stack>
