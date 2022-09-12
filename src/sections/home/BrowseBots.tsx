@@ -1,3 +1,5 @@
+import React, { useEffect, useState, useRef } from 'react';
+
 import { Box, BoxProps, Button, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Image from 'next/image';
@@ -38,6 +40,20 @@ export default function PopularBots({ ...other }: BoxProps) {
   const router = useRouter();
   const isDesktop = useResponsive('up', 'md');
 
+  const [searchFilter, setSearchFilter] = useState('');
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchFilter(event.target.value);
+  };
+
+  const handleSearchBtnOnClick = () => {
+    router.push({
+      pathname: PATH_PAGE.browse,
+      query: {
+        searchFilter,
+      },
+    });
+  };
+
   return (
     <Box {...other}>
       <Container>
@@ -57,7 +73,10 @@ export default function PopularBots({ ...other }: BoxProps) {
                 }),
               }}
             >
-              <SearchInput />
+              <SearchInput
+                onChange={handleInputChange}
+                btnOnClick={handleSearchBtnOnClick}
+              />
             </Box>
 
             <Box

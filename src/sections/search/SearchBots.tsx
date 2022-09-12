@@ -12,6 +12,7 @@ import {
   Typography
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useRouter } from 'next/router';
 import { A11y, Navigation, Scrollbar, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -66,6 +67,7 @@ const PaperStyle = styled(Paper)(({ theme, }) => ({
 // ----------------------------------------------------------------------
 
 interface FilterProps {
+  value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   btnOnClick: () => void;
   handlePlatformChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -73,6 +75,7 @@ interface FilterProps {
   handleLicenseChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const Filters = ({
+  value,
   onChange,
   btnOnClick,
   handlePlatformChange,
@@ -84,6 +87,7 @@ const Filters = ({
   return (
     <>
       <SearchInput
+        value={value}
         onChange={onChange}
         btnOnClick={btnOnClick}
       />
@@ -227,6 +231,7 @@ const Filters = ({
   );
 };
 export default function SearchBots({ ...other }: BoxProps) {
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
   const isMobile = useResponsive('down', 'sm');
@@ -352,6 +357,11 @@ export default function SearchBots({ ...other }: BoxProps) {
     setSearchFilter(event.target.value);
   };
 
+  useEffect(() => {
+    const filterQuery = router.query.searchFilter as string;
+    setSearchFilter(filterQuery || '');
+  }, [router.query]);
+
   return (
     <Box {...other}>
       <Container>
@@ -418,6 +428,7 @@ export default function SearchBots({ ...other }: BoxProps) {
 
             {isDesktop ? (
               <Filters
+                value={searchFilter}
                 btnOnClick={handleSearchBtnOnClick}
                 onChange={handleInputChange}
                 handlePlatformChange={handlePlatformChange}
@@ -432,6 +443,7 @@ export default function SearchBots({ ...other }: BoxProps) {
               >
                 <Box>
                   <Filters
+                    value={searchFilter}
                     btnOnClick={handleSearchBtnOnClick}
                     onChange={handleInputChange}
                     handlePlatformChange={handlePlatformChange}
