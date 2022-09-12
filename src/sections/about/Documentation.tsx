@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Box,
@@ -9,8 +9,11 @@ import {
   Typography
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { paramCase } from 'change-case';
 import { marked } from 'marked';
+import { Link as ScrollLink } from 'react-scroll';
 
+// import { LinkProps } from 'react-scroll/modules/components/Link';
 import Container from 'components/Container';
 import useResponsive from 'hooks/useResponsive';
 
@@ -71,7 +74,17 @@ interface Props extends BoxProps {
 export default function Documentation({ initialProps, ...other }: Props) {
   const isDesktop = useResponsive('up', 'md');
 
+  const [navigation, setNavigation] = useState('');
   const { frontmatter, slug, content, } = initialProps;
+
+  const handleSetActive = (label: string) => {
+    setNavigation(label);
+  };
+
+  useEffect(() => {
+
+    setNavigation(paramCase(frontmatter?.navigation?.[0].label));
+  }, [frontmatter?.navigation]);
 
   return (
     <Box {...other}>
@@ -82,9 +95,16 @@ export default function Documentation({ initialProps, ...other }: Props) {
               <Typography variant='h2'>{frontmatter?.title}</Typography>
             </Box>
 
-            <Box>
+            <Box
+              sx={{
+                position: 'relative',
+              }}
+            >
               <PaperStyle
                 sx={{
+                  position: 'sticky',
+                  top: 80,
+                  // width: 359,
                   display: 'grid',
                   gridTemplateColumns: {
                     xs: 'repeat(2, 1fr)',
@@ -107,36 +127,35 @@ export default function Documentation({ initialProps, ...other }: Props) {
                 >
                   {frontmatter?.navigation?.map((item: any, idx: number) => {
                     const { label, children, } = item;
+                    const to = paramCase(label);
 
                     return (
                       <React.Fragment key={label}>
-                        <ListItemText
-                          disableTypography
-                          primary={label}
-                          sx={{
-                            ...(idx === 0 && {
-                              m: 0,
-                              color: '#000000',
-                              fontWeight: '700',
-                              fontSize: '16px',
-                            }),
-                          }}
+                        <NavigationItem
+                          label={label}
+                          currentNavigation={navigation}
+                          onSetActive={() => handleSetActive(to)}
+                          to={to}
                         />
 
                         {children &&
                           Object.keys(item).map((key, index: number) => {
-                            const label = item[key];
+                            const childLabel = item[key];
 
-                            if (key !== 'label' && key !== 'children')
+                            if (key !== 'label' && key !== 'children') {
+                              const to = paramCase(childLabel);
+
                               return (
-                                <ListItemText
-                                  disableTypography
-                                  primary={label}
-                                  sx={{
-                                    pl: 3,
-                                  }}
+                                <NavigationItem
+                                  key={to}
+                                  label={childLabel}
+                                  currentNavigation={navigation}
+                                  onSetActive={() => handleSetActive(to)}
+                                  to={to}
+                                  child
                                 />
                               );
+                            }
                           })}
                       </React.Fragment>
                     );
@@ -166,3 +185,54 @@ export default function Documentation({ initialProps, ...other }: Props) {
     </Box>
   );
 }
+
+// ----------------------------------------------------------------------
+interface NavigationItemProps {
+  label: string;
+  currentNavigation: string;
+  to: string;
+  onSetActive: () => void;
+  child?: boolean;
+}
+
+const NavigationItem = ({
+  label,
+  child,
+  currentNavigation,
+  to,
+  onSetActive,
+}: NavigationItemProps) => {
+  return (
+    <Box
+      sx={{
+        cursor: 'pointer',
+      }}
+      component={ScrollLink}
+      to={to}
+      onSetActive={onSetActive}
+      onClick={onSetActive}
+      spy={true}
+      hashSpy={true}
+      smooth={true}
+      offset={-200}
+      duration={500}
+    >
+      <ListItemText
+        disableTypography
+        primary={label}
+        sx={{
+        height:26,
+          ...(to === currentNavigation && {
+            m: 0,
+            color: '#000000',
+            fontWeight: '700',
+            fontSize: '16px',
+          }),
+          ...(child && {
+            pl: 3,
+          }),
+        }}
+      />
+    </Box>
+  );
+};
