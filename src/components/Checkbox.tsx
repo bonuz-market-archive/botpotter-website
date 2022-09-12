@@ -1,4 +1,3 @@
-import * as React from 'react';
 
 import Checkbox, { CheckboxProps } from '@mui/material/Checkbox';
 import { styled } from '@mui/material/styles';
@@ -17,7 +16,8 @@ const BpIcon = styled('span')(({ theme, }) => ({
       ? 'linear-gradient(180deg,hsla(0,0%,100%,.05),hsla(0,0%,100%,0))'
       : 'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
   '.Mui-focusVisible &': {
-    outline: '2px auto rgba(19,124,189,.6)',
+    // outline: '2px auto rgba(19,124,189,.6)',
+    outline: `2px auto ${theme.palette.primary.dark}`,
     outlineOffset: 2,
   },
   'input:hover ~ &': {
@@ -32,8 +32,9 @@ const BpIcon = styled('span')(({ theme, }) => ({
   },
 }));
 
-const BpCheckedIcon = styled(BpIcon)({
-  backgroundColor: '#137cbd',
+const BpCheckedIcon = styled(BpIcon)(({ theme, }) => ({
+  // backgroundColor: '#137cbd',
+  backgroundColor: theme.palette.primary.main,
   backgroundImage:
     'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
   '&:before': {
@@ -47,9 +48,10 @@ const BpCheckedIcon = styled(BpIcon)({
     content: '""',
   },
   'input:hover ~ &': {
-    backgroundColor: '#106ba3',
+    // backgroundColor: '#106ba3',
+    backgroundColor: theme.palette.primary.dark,
   },
-});
+}));
 
 // Inspired by blueprintjs
 function BpCheckbox(props: CheckboxProps) {
