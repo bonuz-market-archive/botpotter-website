@@ -32,6 +32,12 @@ const GridStyle = styled('div')(({ theme, }) => ({
   display: 'grid',
   gap: theme.spacing(2),
   gridTemplateColumns: '1fr',
+  [theme.breakpoints.up('sm')]: {
+    // columGap: theme.spacing(5),
+    // rowGap: theme.spacing(2),
+    gridTemplateColumns: '250px 1fr',
+  },
+
   [theme.breakpoints.up('md')]: {
     columGap: theme.spacing(5),
     rowGap: theme.spacing(2),
@@ -72,6 +78,7 @@ interface Props extends BoxProps {
   initialProps: any;
 }
 export default function Documentation({ initialProps, ...other }: Props) {
+  const isMobile = useResponsive('down', 'sm');
   const isDesktop = useResponsive('up', 'md');
 
   const [navigation, setNavigation] = useState('');
@@ -107,7 +114,7 @@ export default function Documentation({ initialProps, ...other }: Props) {
                   // width: 359,
                   display: 'grid',
                   gridTemplateColumns: {
-                    xs: 'repeat(2, 1fr)',
+                    xs: 'repeat(1, 1fr)',
                     md: 'repeat(1, 1fr)',
                   },
                 }}
@@ -166,7 +173,7 @@ export default function Documentation({ initialProps, ...other }: Props) {
 
             <Box
               sx={{
-                ...(!isDesktop && {
+                ...(isMobile && {
                   gridColumn: '1/ -1',
                 }),
               }}
@@ -212,7 +219,7 @@ const NavigationItem = ({
       onSetActive={onSetActive}
       onClick={onSetActive}
       spy={true}
-      hashSpy={true}
+      // hashSpy={true}
       smooth={true}
       offset={-200}
       duration={500}
