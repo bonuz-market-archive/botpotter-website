@@ -4,6 +4,6 @@ export const PATH_PAGE = {
   browse: '/browse',
   createBot: '/create-bot',
   community: '/community',
-  about: '/about',
+  about: '/about/create-bot',
 };
 // ----------------------------------------------------------------------
