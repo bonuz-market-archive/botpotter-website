@@ -1,17 +1,23 @@
+import React from 'react';
+
 import {
-  Box,
   Button,
   FormControl,
-  IconButton,
   InputAdornment,
   OutlinedInput,
   OutlinedInputProps
 } from '@mui/material';
 
-interface Props extends OutlinedInputProps{
-  btnOnClick?: () => void,
+interface Props extends OutlinedInputProps {
+  btnOnClick?: () => void;
 }
-const SearchInput = ({btnOnClick, ...other}: Props) => {
+const SearchInput = ({ btnOnClick, ...other }: Props) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (btnOnClick && event.key === 'Enter') {
+      btnOnClick();
+    }
+  };
+
   return (
     <FormControl
       sx={{
@@ -23,7 +29,7 @@ const SearchInput = ({btnOnClick, ...other}: Props) => {
         fullWidth
         sx={{
           height: 72,
-          pl:2,
+          pl: 2,
           pr: 0,
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: '#DBDBDB',
@@ -41,6 +47,7 @@ const SearchInput = ({btnOnClick, ...other}: Props) => {
         // onChange={(e) => setMessageText(e.target.value)}
         // onKeyPress={handleKeyPress}
         // ref={inputBox}
+        onKeyDown={handleKeyDown}
         endAdornment={(
           <InputAdornment position='end'>
             <Button
@@ -53,7 +60,7 @@ const SearchInput = ({btnOnClick, ...other}: Props) => {
                 width: '155px',
                 height: '72px',
                 // border:0,
-                '&:hover':{
+                '&:hover': {
                   borderTopRightRadius: 16,
                   borderBottomRightRadius: 16,
                 },
