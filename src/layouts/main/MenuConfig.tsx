@@ -35,10 +35,10 @@ const menuConfig = [
   //   path: PATH_PAGE.createBot,
   // },
 
-  {
-    title: 'Community',
-    path: PATH_PAGE.community,
-  },
+  // {
+  //   title: 'Community',
+  //   path: PATH_PAGE.community,
+  // },
   {
     title: 'Docs',
     path: PATH_PAGE.docs,
