@@ -47,9 +47,9 @@ type MenuDesktopItemProps = {
 };
 
 function MenuDesktopItem({ item, }: MenuDesktopItemProps) {
-  const { pathname, } = useRouter();
+  const { pathname, asPath,} = useRouter();
   const { title, path, } = item;
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) => asPath === path;
 
   return (
     <NextLink

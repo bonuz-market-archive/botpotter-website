@@ -121,9 +121,9 @@ type MenuMobileItemProps = {
 };
 
 function MenuMobileItem({ item, }: MenuMobileItemProps) {
-  const { pathname, } = useRouter();
+  const { pathname,asPath, } = useRouter();
   const { title, path, children, } = item;
-  const isActive = pathname === path;
+  const isActive = asPath === path;
 
   return (
     <>
