@@ -49,7 +49,7 @@ In our [concept documentation](https://link-url-here.org) you will learn about t
 
 ## API
 
-See the [API documentation](https://link-url-here.org) to learn how to interact with our platform.
+See the [API documentation](https://botpotter.com/docs/api) to learn how to interact with our platform.
 
 <br/>
 
