@@ -15,6 +15,7 @@ import { Link as ScrollLink } from 'react-scroll';
 
 // import { LinkProps } from 'react-scroll/modules/components/Link';
 import Container from 'components/Container';
+import Markdown from 'components/Markdown';
 import useResponsive from 'hooks/useResponsive';
 
 // ----------------------------------------------------------------------
@@ -92,6 +93,15 @@ export default function Documentation({ initialProps, ...other }: Props) {
 
     setNavigation(paramCase(frontmatter?.navigation?.[0].label));
   }, [frontmatter?.navigation]);
+
+const body = `
+\`\`\`
+console.log('Code Tab A');
+\`\`\`
+\`\`\`
+console.log('Code Tab B');
+\`\`\`
+`;
 
   return (
     <Box {...other}>
@@ -178,13 +188,17 @@ export default function Documentation({ initialProps, ...other }: Props) {
                 }),
               }}
             >
-              {content && (
+              {/* {content && (
                 <MarkDownStyle
                   dangerouslySetInnerHTML={{
                     __html: marked.parse(content),
                   }}
                 ></MarkDownStyle>
-              )}
+              )} */}
+              
+              <Markdown body={content}/>
+
+              {/* <Markdown body={body}/> */}
             </Box>
           </GridStyle>
         </ContentStyle>

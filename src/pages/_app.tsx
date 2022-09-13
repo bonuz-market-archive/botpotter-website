@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // scroll bar
 import 'simplebar/src/simplebar.css';
+//@readme/markdown
+import 'components/Markdown/style.scss';
+
 import { useState, ReactElement, ReactNode, useEffect } from 'react';
 
 import {
