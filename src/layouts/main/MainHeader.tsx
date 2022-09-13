@@ -68,6 +68,7 @@ export default function MainHeader() {
   const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
   const theme = useTheme();
   const isDesktop = useResponsive('up', 'md');
+  const isMobile = useResponsive('down', 'sm');
 
   return (
     <AppBar
@@ -113,7 +114,7 @@ export default function MainHeader() {
             justifyContent='center'
             alignItems='center'
           >
-            <Logo  isOffset={isOffset}/>
+            <Logo isOffset={isOffset} />
 
             {isDesktop && <MenuDesktop navConfig={navConfig} />}
           </Stack>
@@ -128,14 +129,17 @@ export default function MainHeader() {
 
           <Button
             variant='contained'
+            // size='small'
             sx={{
               bgcolor: 'grey.900',
-              width: isDesktop ? 204 : 110,
-              height: 54,
-              p: 0,
-              ...(!isDesktop && {
-                mb: 1,
+              ...(!isMobile && {
+                width: isDesktop ? 204 : 110,
+                height: 54,
               }),
+              // p: 0,
+              // ...(!isDesktop && {
+              //   mb: 1,
+              // }),
               '&:hover': {
                 bgcolor: 'common.black',
               },
