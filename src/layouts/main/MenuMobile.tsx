@@ -134,7 +134,7 @@ function MenuMobileItem({ item, }: MenuMobileItemProps) {
         <ListItemStyle
           sx={{
             ...(isActive && {
-              color: 'info.light',
+              color: 'primary.main',
               fontWeight: 'fontWeightMedium',
               bgcolor: (theme) =>
                 alpha(
