@@ -15,12 +15,12 @@ interface Props extends BoxProps {
 
 const Logo = forwardRef<any, Props>(
   ({ isOffset, disabledLink = false, sx, }, ref) => {
-    const isDesktop = useResponsive('up', 'md');
+    const isMobile = useResponsive('down', 'sm');
 
     const logo = (
       <Box
         component='img'
-        src={`/svg/${isOffset ? 'logo-header-no-border' : 'logo-header'}.svg`}
+        src={`/svg/${isOffset|| isMobile ? 'logo-header-no-border' : 'logo-header'}.svg`}
         alt='bot potter logo'
         sx={{
           cursor: 'pointer',
