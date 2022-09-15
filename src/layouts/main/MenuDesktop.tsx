@@ -41,15 +41,21 @@ export default function MenuDesktop({ navConfig, }: MenuProps) {
 }
 
 // ----------------------------------------------------------------------
+const isChildRoute = (asPath: string, path: string) => {
+ const asPathSplit = asPath.split('/')[1];
+  const pathSplit = path.split('/')[1];
+
+  return asPathSplit === pathSplit;
+};
 
 type MenuDesktopItemProps = {
   item: MenuItemProps;
 };
 
 function MenuDesktopItem({ item, }: MenuDesktopItemProps) {
-  const { pathname, asPath,} = useRouter();
+  const { pathname, asPath, } = useRouter();
   const { title, path, } = item;
-  const isActive = (path: string) => asPath === path;
+  const isActive = (path: string) => asPath === path ;
 
   return (
     <NextLink
@@ -58,7 +64,7 @@ function MenuDesktopItem({ item, }: MenuDesktopItemProps) {
     >
       <LinkStyle
         sx={{
-          ...(isActive(path) && {
+          ...((isActive(path) || isChildRoute(asPath, path)) && {
             color: 'primary.main',
           }),
         }}
