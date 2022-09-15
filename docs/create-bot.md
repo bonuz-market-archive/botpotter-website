@@ -49,8 +49,9 @@ In our [concept documentation](https://link-url-here.org) you will learn about t
 
 ## API
 
-See the [API documentation](/docs/api) to learn how to interact with our platform.
+See the <span class='client__side__routing' id='/docs/api' data-value='/docs/api'>API</span> to learn how to interact with our platform.
 
+See with relaod [API documentation](/docs/api) to learn how to interact with our platform.
 <br/>
 
 ## Help

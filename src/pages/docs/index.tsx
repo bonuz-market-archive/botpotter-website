@@ -89,7 +89,7 @@ export default function AboutPage(initialProps: AboutProps) {
   const router = useRouter();
 
 useEffect(() => {
-  router.push('/about/create-bot');
+  router.push('/docs/create-bot');
 }, [router]);
 
   return (

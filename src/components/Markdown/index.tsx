@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import rdmd from '@readme/markdown';
 
 // ----------------------------------------------------------------------
-const MarkDownStyle = styled(Box)(({ theme, }) => ({
+const MarkDownStyle = styled(Box)(({ theme }) => ({
   '& .heading': {
     fontFamily: 'Flame',
     fontStyle: 'normal',
@@ -18,6 +18,13 @@ const MarkDownStyle = styled(Box)(({ theme, }) => ({
   '& li': {
     marginLeft: theme.spacing(2.5),
   },
+  '& .client__side__routing': {
+    textDecoration: 'underline',
+    color: 'blue',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
 }));
 
 // ----------------------------------------------------------------------
@@ -25,7 +32,7 @@ export interface Props {
   body?: string;
 }
 
-export default function Markdown({ body, }: Props) {
+export default function Markdown({ body }: Props) {
   return (
     <MarkDownStyle>
       <div className='markdown-body'>{rdmd(body)}</div>

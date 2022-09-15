@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+//@ts-nocheck
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -11,6 +13,7 @@ import {
 import { styled } from '@mui/material/styles';
 import { paramCase } from 'change-case';
 import { marked } from 'marked';
+import { useRouter } from 'next/router';
 import { Link as ScrollLink } from 'react-scroll';
 
 // import { LinkProps } from 'react-scroll/modules/components/Link';
@@ -80,6 +83,7 @@ interface Props extends BoxProps {
   initialProps: any;
 }
 export default function Documentation({ initialProps, ...other }: Props) {
+  const router = useRouter();
   const isMobile = useResponsive('down', 'sm');
   const isDesktop = useResponsive('up', 'md');
 
@@ -94,14 +98,26 @@ export default function Documentation({ initialProps, ...other }: Props) {
     setNavigation(paramCase(frontmatter?.navigation?.[0].label));
   }, [frontmatter?.navigation]);
 
-  const body = `
-\`\`\`
-console.log('Code Tab A');
-\`\`\`
-\`\`\`
-console.log('Code Tab B');
-\`\`\`
-`;
+  useEffect(() => {
+    const clientRoutes = document.getElementsByClassName(
+      'client__side__routing'
+    );
+
+    if (!clientRoutes) return;
+
+    [...clientRoutes].forEach((element) => {
+      element.addEventListener('click', function () {
+        const routerLink = element.id;
+        router.push(routerLink);
+      });
+    });
+
+    return () => {
+      [...clientRoutes].forEach((element) =>
+        element.removeEventListener('click', function () {})
+      );
+    };
+  }, [router]);
 
   return (
     <Box {...other}>
