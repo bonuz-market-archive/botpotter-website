@@ -16,6 +16,7 @@ import { Link as ScrollLink } from 'react-scroll';
 // import { LinkProps } from 'react-scroll/modules/components/Link';
 import Container from 'components/Container';
 import Markdown from 'components/Markdown';
+import Scrollbar from 'components/Scrollbar';
 import useResponsive from 'hooks/useResponsive';
 
 // ----------------------------------------------------------------------
@@ -90,11 +91,10 @@ export default function Documentation({ initialProps, ...other }: Props) {
   };
 
   useEffect(() => {
-
     setNavigation(paramCase(frontmatter?.navigation?.[0].label));
   }, [frontmatter?.navigation]);
 
-const body = `
+  const body = `
 \`\`\`
 console.log('Code Tab A');
 \`\`\`
@@ -136,48 +136,59 @@ console.log('Code Tab B');
                   Navigation
                 </Typography>
 
-                <Stack
-                  direction='column'
-                  spacing={1.5}
-                  justifyContent='center'
-                  alignItems='start'
+                <Box
+                  sx={{
+                    maxHeight: '60vh',
+                    overflow: 'auto',
+                  }}
                 >
-                  {frontmatter?.navigation?.map((item: any, idx: number) => {
-                    const { label, children, } = item;
-                    const to = paramCase(label);
+                  <Scrollbar autoHide={false}>
+                    <Stack
+                      direction='column'
+                      spacing={1.5}
+                      justifyContent='center'
+                      alignItems='start'
+                    >
+                      {frontmatter?.navigation?.map(
+                        (item: any, idx: number) => {
+                          const { label, children, } = item;
+                          const to = paramCase(label);
 
-                    return (
-                      <React.Fragment key={label}>
-                        <NavigationItem
-                          label={label}
-                          currentNavigation={navigation}
-                          onSetActive={() => handleSetActive(to)}
-                          to={to}
-                        />
+                          return (
+                            <React.Fragment key={label}>
+                              <NavigationItem
+                                label={label}
+                                currentNavigation={navigation}
+                                onSetActive={() => handleSetActive(to)}
+                                to={to}
+                              />
 
-                        {children &&
-                          Object.keys(item).map((key, index: number) => {
-                            const childLabel = item[key];
+                              {children &&
+                                Object.keys(item).map((key, index: number) => {
+                                  const childLabel = item[key];
 
-                            if (key !== 'label' && key !== 'children') {
-                              const to = paramCase(childLabel);
+                                  if (key !== 'label' && key !== 'children') {
+                                    const to = paramCase(childLabel);
 
-                              return (
-                                <NavigationItem
-                                  key={to}
-                                  label={childLabel}
-                                  currentNavigation={navigation}
-                                  onSetActive={() => handleSetActive(to)}
-                                  to={to}
-                                  child
-                                />
-                              );
-                            }
-                          })}
-                      </React.Fragment>
-                    );
-                  })}
-                </Stack>
+                                    return (
+                                      <NavigationItem
+                                        key={to}
+                                        label={childLabel}
+                                        currentNavigation={navigation}
+                                        onSetActive={() => handleSetActive(to)}
+                                        to={to}
+                                        child
+                                      />
+                                    );
+                                  }
+                                })}
+                            </React.Fragment>
+                          );
+                        }
+                      )}
+                    </Stack>
+                  </Scrollbar>
+                </Box>
               </PaperStyle>
             </Box>
 
@@ -195,8 +206,8 @@ console.log('Code Tab B');
                   }}
                 ></MarkDownStyle>
               )} */}
-              
-              <Markdown body={content}/>
+
+              <Markdown body={content} />
 
               {/* <Markdown body={body}/> */}
             </Box>
@@ -242,7 +253,7 @@ const NavigationItem = ({
         disableTypography
         primary={label}
         sx={{
-        height:26,
+          height: 26,
           ...(to === currentNavigation && {
             m: 0,
             color: '#000000',
