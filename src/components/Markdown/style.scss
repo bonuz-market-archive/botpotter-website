@@ -1,1 +1,45 @@
 @import '@readme/markdown/styles/main.scss';
+
+.CodeTabs-toolbar {
+  background-color: transparent;
+  button {
+    flex: 1;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23px;
+    &:first-child {
+      border: 1px solid #000;
+      border-top-left-radius: 8px;
+    }
+
+    &:nth-child(2) {
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+    }
+
+    &:nth-child(3) {
+      border: 1px solid #000;
+      border-top-right-radius: 8px;
+    }
+  }
+}
+
+.CodeTabs.CodeTabs_initial .CodeTabs-toolbar button:first-child,
+.CodeTabs-toolbar button.CodeTabs_active {
+  background: #000 !important;
+  color: #fff;
+  pointer-events: none;
+}
+
+.markdown-body pre > code {
+  padding: 20px 42px;
+  .cm-s-neo {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
