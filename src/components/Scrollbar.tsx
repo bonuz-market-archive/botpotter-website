@@ -18,7 +18,8 @@ const SimpleBarStyle = styled(SimpleBarReact)(({ theme, }) => ({
     '&:before': {
       // height: 100,
       // backgroundColor: alpha(theme.palette.grey[600], 0.48),
-      backgroundColor: alpha(theme.palette.grey[100], 0.48),
+      // backgroundColor: alpha(theme.palette.grey[100], 0.48),
+      backgroundColor: theme.palette.primary.main,
     },
     '&.simplebar-visible:before': {
       opacity: 1,
