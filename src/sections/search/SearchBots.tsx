@@ -193,6 +193,11 @@ export default function SearchBots({ ...other }: BoxProps) {
   n = isMobile ? 3 : n;
   const numOfSlides = Math.ceil((filteredBots?.length ?? 0) / n);
 
+  console.log(
+    '🚀MMM ~ file: SearchBots.tsx ~ line 195 ~ numOfSlides',
+    numOfSlides
+  );
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSearchFilter(value);
@@ -305,7 +310,21 @@ export default function SearchBots({ ...other }: BoxProps) {
             >
               {isLoading && <LoadingSpinner />}
 
-              {!isLoading && (
+              {!isLoading && numOfSlides === 0 && (
+                <Stack
+                  direction='row'
+                  spacing={1}
+                  justifyContent='center'
+                  alignItems='center'
+                  sx={{
+                    height: '50vh',
+                  }}
+                >
+                  <Typography variant='h5'>No bot found.</Typography>
+                </Stack>
+              )}
+
+              {!isLoading && numOfSlides > 0 && (
                 <Box
                   sx={{
                     '& .mySwiper': {
