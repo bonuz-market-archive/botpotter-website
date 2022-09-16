@@ -6,7 +6,8 @@ import {
   Box,
   BoxProps,
   Button,
-  Collapse, Stack,
+  Collapse,
+  Stack,
   Typography
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -17,6 +18,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import BotCard from 'components/BotCard';
 import Container from 'components/Container';
 import Filters from 'components/Filters';
+import { LoadingSpinner } from 'components/LoadingSpinner';
 import { useQueryBots } from 'hooks/react-query';
 import useResponsive from 'hooks/useResponsive';
 import { IBots, TCategory, TLicense, TPlatform } from 'types';
@@ -301,61 +303,67 @@ export default function SearchBots({ ...other }: BoxProps) {
                 }),
               }}
             >
-              <Box
-                sx={{
-                  '& .mySwiper': {
-                    '& .swiper-wrapper': {
-                      pb: 10,
-                      maxWidth: 100, // this is just to remove width: 100%;
-                    },
-                    '& .swiper-slide': {
-                      display: 'grid',
-                      gridTemplateColumns: {
-                        xs: '1fr',
-                        sm: 'repeat(auto-fill, minmax(337px, 1fr))',
+              {isLoading && <LoadingSpinner />}
+
+              {!isLoading && (
+                <Box
+                  sx={{
+                    '& .mySwiper': {
+                      '& .swiper-wrapper': {
+                        pb: 10,
+                        maxWidth: 100, // this is just to remove width: 100%;
                       },
-                      gap: 2,
+                      '& .swiper-slide': {
+                        display: 'grid',
+                        gridTemplateColumns: {
+                          xs: '1fr',
+                          sm: 'repeat(auto-fill, minmax(337px, 1fr))',
+                        },
+                        gap: 2,
+                      },
+                      '& .swiper-pagination-bullet-active': {
+                        background: '#CA7B57',
+                      },
                     },
-                    '& .swiper-pagination-bullet-active': {
-                      background: '#CA7B57',
-                    },
-                  },
-                }}
-              >
-                <Swiper
-                  pagination={{
-                    clickable: true,
                   }}
-                  modules={[Pagination]}
-                  className='mySwiper'
                 >
-                  {[...Array(numOfSlides)].map((slideNumber, index) => {
-                    const start = index * n;
-                    const end = (index + 1) * n;
+                  <Swiper
+                    pagination={{
+                      clickable: true,
+                    }}
+                    modules={[Pagination]}
+                    className='mySwiper'
+                  >
+                    {[...Array(numOfSlides)].map((slideNumber, index) => {
+                      const start = index * n;
+                      const end = (index + 1) * n;
 
-                    const range = Array.from(Array(end - start).keys()).map(
-                      (x) => x + start
-                    );
+                      const range = Array.from(Array(end - start).keys()).map(
+                        (x) => x + start
+                      );
 
-                    // if (filteredBots && end <= filteredBots?.length)
-                    return (
-                      <SwiperSlide key={`SwiperSlide___${slideNumber}__${index}`}>
-                        {range.map((element, idx) => {
-                          const bot = filteredBots?.[element];
+                      // if (filteredBots && end <= filteredBots?.length)
+                      return (
+                        <SwiperSlide
+                          key={`SwiperSlide___${slideNumber}__${index}`}
+                        >
+                          {range.map((element, idx) => {
+                            const bot = filteredBots?.[element];
 
-                          return bot ? (
-                            <BotCard
-                              //
-                              key={`bot__${idx}`}
-                              {...bot}
-                            />
-                          ) : null;
-                        })}
-                      </SwiperSlide>
-                    );
-                  })}
-                </Swiper>
-              </Box>
+                            return bot ? (
+                              <BotCard
+                                //
+                                key={`bot__${idx}`}
+                                {...bot}
+                              />
+                            ) : null;
+                          })}
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
+                </Box>
+              )}
 
               {/* <CardsWrapperStyle>
                 {filteredBots &&
