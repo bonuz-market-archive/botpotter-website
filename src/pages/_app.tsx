@@ -81,10 +81,11 @@ export default function MyApp(props: MyAppProps) {
           </MotionLazyContainer>
         </Hydrate>
 
-        <ReactQueryDevtools
+        {/* <ReactQueryDevtools
           initialIsOpen={false}
           position='bottom-right'
-        />
+        /> */}
+
       </QueryClientProvider>
     </>
   );
