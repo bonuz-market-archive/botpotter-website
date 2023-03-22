@@ -5,7 +5,7 @@ import {
   FormControl,
   InputAdornment,
   OutlinedInput,
-  OutlinedInputProps
+  OutlinedInputProps,
 } from '@mui/material';
 
 interface Props extends OutlinedInputProps {
@@ -48,7 +48,7 @@ const SearchInput = ({ btnOnClick, ...other }: Props) => {
         // onKeyPress={handleKeyPress}
         // ref={inputBox}
         onKeyDown={handleKeyDown}
-        endAdornment={(
+        endAdornment={
           <InputAdornment position='end'>
             <Button
               variant='text'
@@ -70,7 +70,7 @@ const SearchInput = ({ btnOnClick, ...other }: Props) => {
               Search
             </Button>
           </InputAdornment>
-        )}
+        }
         label=''
         {...other}
       />
